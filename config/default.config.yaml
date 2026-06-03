@@ -1,0 +1,21 @@
+pipeline:
+  fetch_timeout_seconds: 30
+  max_concurrent_fetches: 10
+  retry_count: 2
+
+scoring:
+  relevance_weight: 0.4
+  novelty_weight: 0.2
+  engineering_weight: 0.3
+  actionability_weight: 0.1
+
+thresholds:
+  min_relevance_score: 0.6
+  min_importance_score: 0.7
+
+output:
+  max_articles_per_report: 20
+  reports_dir: ~/.ai-scout/reports
+
+llm:
+  source_generation_model: 
