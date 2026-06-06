@@ -1,3 +1,6 @@
+storage:
+  db_file_path: ~/.ai-scout/ai_scout.db
+
 pipeline:
   fetch_timeout_seconds: 30
   max_concurrent_fetches: 10

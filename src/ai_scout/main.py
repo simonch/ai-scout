@@ -1,6 +1,7 @@
 import typer
 
-from ai_scout.init.setup import run_init
+from ai_scout.commands.topics import topics_app
+from ai_scout.init.setup import run_init, CONFIG_PATH
 
 _BANNER = r"""
 #############################
@@ -8,31 +9,18 @@ _BANNER = r"""
 #############################
 """
 
-
 app = typer.Typer()
+app.add_typer(topics_app, name="topics", help="Manage interest topics")
 
 
 @app.callback(invoke_without_command=True)
-def _banner_callback(ctx: typer.Context):
+def _main(ctx: typer.Context):
     typer.echo(_BANNER)
     if ctx.invoked_subcommand is None:
+        if not CONFIG_PATH.exists():
+            run_init()
+        typer.echo("Running AI Scout pipeline...")
         raise typer.Exit()
-
-
-@app.command()
-def init():
-    """
-    Initialize AI Scout configuration.
-    """
-    run_init()
-
-
-@app.command()
-def run():
-    """
-    Placeholder for ingestion pipeline (later).
-    """
-    print("Running AI Scout pipeline...")
 
 
 if __name__ == "__main__":
